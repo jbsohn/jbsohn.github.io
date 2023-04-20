@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <canvas id="canvas" width="2042" height="502"></canvas>
+  </body>
+</html>
+
+<script>
+  var canvas = document.getElementById("canvas");
+  var context = canvas.getContext("2d");
+
+  var micaImage = new Image();
+  micaImage.src = "red.png";
+  micaImage.onload = function () {
+    context.drawImage(
+      micaImage,
+      0,
+      0,
+      mainImage.width * 0.5,
+      mainImage.height * 0.5
+    );
+  };
+
+  var mainImage = new Image();
+  mainImage.src = "guitar.png";
+  mainImage.onload = function () {
+    context.drawImage(
+      mainImage,
+      0,
+      0,
+      mainImage.width * 0.5,
+      mainImage.height * 0.5
+    );
+  };
+</script>
