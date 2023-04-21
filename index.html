@@ -1,16 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<body onload="init()">
-    <canvas id="canvas" width="2042" height="502"></canvas>
-    <canvas id="textureCanvas" width="2042" height="502"></canvas>
-</body>
+<body onload="">
+    <div class="parent">
+        <img class="image2" src="white.png" />
+        <img class="image1" src="guitar.png"/>
+    </div>
 
+</body>
 </html>
 
 <script>
+    // <canvas id="canvas" width="2042" height="502" style="background: url('guitar.png')"></canvas>
+    // <canvas id="textureCanvas" width="2042" height="502" hidden</canvas>
+</script>
+
+<style>
+    .parent {
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+
+    .image1 {
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+
+    .image2 {
+        position: absolute;
+        top: 30px;
+        left: 30px;
+    }
+</style>
+
+<script>
+    async function init2() {
+        var canvas = document.getElementById("canvas")
+        var context = canvas.getContext("2d")
+        var image = await getCombinedBackgroundImage("aegean_teal.png");
+
+        context.drawImage(image, 0, 0);
+    }
+
     async function init() {
-        var backgroundImage =  await getBackgroundImage();
+        var backgroundImage = await getBackgroundImage();
         var textureImage = await getCombinedBackgroundImage(backgroundImage, "green_sparkle.png")
         draw(textureImage)
 
@@ -18,7 +53,7 @@
     }
 
     async function test2() {
-        var backgroundImage =  await getBackgroundImage();
+        var backgroundImage = await getBackgroundImage();
         var textureImage = await getCombinedBackgroundImage(backgroundImage, "aegean_teal.jpg")
         draw(textureImage)
     }
@@ -26,11 +61,11 @@
     function draw(image) {
         var canvas = document.getElementById("canvas")
         var context = canvas.getContext("2d")
-        
+
         context.save();
         context.setTransform(1, 0, 0, 1, 0, 0);
         context.clearRect(0, 0, canvas.width, canvas.height);
-        context.restore();        
+        context.restore();
 
         context.drawImage(image, 0, 0, image.width, image.height)
     }
@@ -39,29 +74,15 @@
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    async function getBackgroundImage() {
-        var backgroundImage = new Image()
-
-        var imageLoaded = false
-        backgroundImage.onload = function() {
-            imageLoaded = true 
-        }
-
-        backgroundImage.src = "white.png"
-        while (!imageLoaded) {
-            await sleep(500)
-        }
-        return backgroundImage
-    }
-
- async function getCombinedBackgroundImage(backgroundImage, imageName) {
+    async function getCombinedBackgroundImage(imageName) {
+        var backgroundImage = await getBackgroundImage()
         var textureCanvas = document.getElementById("textureCanvas")
         var textureContext = textureCanvas.getContext("2d")
         var textureImage = new Image()
 
         var imageLoaded = false
-        textureImage.onload = function () { 
-            imageLoaded = true 
+        textureImage.onload = function () {
+            imageLoaded = true
         }
         textureImage.src = imageName
         while (!imageLoaded) {
@@ -71,12 +92,28 @@
         textureContext.fillStyle = textureContext.createPattern(textureImage, "repeat");
         textureContext.fillRect(0, 0, textureCanvas.width, textureCanvas.height);
         textureContext.globalCompositeOperation = "multiply";
-        textureContext.drawImage(backgroundImage, 0, 0, backgroundImage.width * 0.5, backgroundImage.height * 0.5);
+        textureContext.drawImage(backgroundImage, 0, 0, backgroundImage.width, backgroundImage.height);
         textureContext.globalCompositeOperation = "destination-in";
-        textureContext.drawImage(backgroundImage, 0, 0, backgroundImage.width * 0.5, backgroundImage.height * 0.5);
+        textureContext.drawImage(backgroundImage, 0, 0, backgroundImage.width, backgroundImage.height);
 
         var image = new Image()
         image.src = textureCanvas.toDataURL()
         return image
     }
+
+    async function getBackgroundImage() {
+        var backgroundImage = new Image()
+
+        var imageLoaded = false
+        backgroundImage.onload = function () {
+            imageLoaded = true
+        }
+
+        backgroundImage.src = "white.png"
+        while (!imageLoaded) {
+            await sleep(500)
+        }
+        return backgroundImage
+    }
+
 </script>
