@@ -1,73 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<body onload="">
+<head>
+    <style>
+        .parent {
+            position: relative;
+            top: 0;
+            left: 0;
+        }
+    
+        .image1 {
+            position: relative;
+            top: 0;
+            left: 0;
+        }
+    
+        .image2 {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
+    </style>    
+</head>
+<body onload="green()">
     <div class="parent">
-        <img class="image2" src="white.png" />
-        <img class="image1" src="guitar.png"/>
+        <img id="texture" class="image2" src="" width="2042" height="502"/>
+        <img id="guitar" class="image1" src="guitar.png" width="2042" height="502"/>
     </div>
-
+    <button onclick="green()">Green Sparkle</button>
+    <button onclick="teal()">Aegean Teal</button>
 </body>
 </html>
 
 <script>
-    // <canvas id="canvas" width="2042" height="502" style="background: url('guitar.png')"></canvas>
-    // <canvas id="textureCanvas" width="2042" height="502" hidden</canvas>
-</script>
-
-<style>
-    .parent {
-        position: relative;
-        top: 0;
-        left: 0;
+    async function green() {
+        var image = await getCombinedBackgroundImage("green_sparkle.png");
+        document.getElementById("texture").src = image.src
     }
 
-    .image1 {
-        position: relative;
-        top: 0;
-        left: 0;
-    }
-
-    .image2 {
-        position: absolute;
-        top: 30px;
-        left: 30px;
-    }
-</style>
-
-<script>
-    async function init2() {
-        var canvas = document.getElementById("canvas")
-        var context = canvas.getContext("2d")
+    async function teal() {
         var image = await getCombinedBackgroundImage("aegean_teal.png");
-
-        context.drawImage(image, 0, 0);
-    }
-
-    async function init() {
-        var backgroundImage = await getBackgroundImage();
-        var textureImage = await getCombinedBackgroundImage(backgroundImage, "green_sparkle.png")
-        draw(textureImage)
-
-        test2()
-    }
-
-    async function test2() {
-        var backgroundImage = await getBackgroundImage();
-        var textureImage = await getCombinedBackgroundImage(backgroundImage, "aegean_teal.jpg")
-        draw(textureImage)
-    }
-
-    function draw(image) {
-        var canvas = document.getElementById("canvas")
-        var context = canvas.getContext("2d")
-
-        context.save();
-        context.setTransform(1, 0, 0, 1, 0, 0);
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        context.restore();
-
-        context.drawImage(image, 0, 0, image.width, image.height)
+        document.getElementById("texture").src = image.src
     }
 
     function sleep(ms) {
@@ -76,7 +48,13 @@
 
     async function getCombinedBackgroundImage(imageName) {
         var backgroundImage = await getBackgroundImage()
-        var textureCanvas = document.getElementById("textureCanvas")
+        var textureCanvas = document.createElement("canvas")
+        textureCanvas.id = "textureCanvas"
+        textureCanvas.width = 2042 
+        textureCanvas.height = 502
+        textureCanvas.hidden = true
+
+        document.body.appendChild(textureCanvas)
         var textureContext = textureCanvas.getContext("2d")
         var textureImage = new Image()
 
@@ -98,6 +76,7 @@
 
         var image = new Image()
         image.src = textureCanvas.toDataURL()
+        textureCanvas.remove()
         return image
     }
 
