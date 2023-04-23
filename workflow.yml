@@ -9,10 +9,10 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
-          ref: dummy/data    #checkout different branch
+          ref: dummy-data    #checkout different branch
 
       - name: Generate Directory Listings
-        uses: jayanta525/github-pages-directory-listing@main
+        uses: jayanta525/github-pages-directory-listing@v3.0.0
         with:
           FOLDER: HPL      #directory to generate index
 
