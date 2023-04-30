@@ -1,12 +1,12 @@
-import { MantineProvider } from '@mantine/core';
 import { Guitar } from './Guitar/Guitar';
 import { WilsonArt } from './WilsonArt/WilsonArt';
+import { ThemeProvider } from './ThemeProvider';
 
 export default function App() {
   return (
-    <MantineProvider withGlobalStyles withNormalizeCSS>
-      <Guitar/>
-      <WilsonArt/>
-    </MantineProvider>
+    <ThemeProvider>
+      <Guitar />
+      <WilsonArt />
+    </ThemeProvider>
   );
 }

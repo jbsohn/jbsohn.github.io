@@ -1,6 +1,5 @@
 import { Grid, Box, Image } from '@mantine/core';
-import { MouseEventHandler, useState } from 'react';
-import { isElementOfType } from 'react-dom/test-utils';
+import { MouseEventHandler, MouseEvent, useState } from 'react';
 
 const hplImages = [
     "10657-60 Graphite.png",
@@ -331,20 +330,22 @@ const hplImages = [
 ]
 
 const textureImages = hplImages.map((filename) => {
-    return "src/assets/HPL/" + filename
+    return "assets/HPL/" + filename
 })
 
-function handleClick(e: MouseEvent) {
+function handleClick(e: MouseEvent<HTMLImageElement>) {
     const imageElement = e.target as HTMLImageElement
     console.log("e:" + imageElement.src)    
 }
 
 export function WilsonArt() {
     return (
+        <Box>
         <Grid>
             {textureImages.map((textureImage, index) => (
                 <Image src={textureImage} key={index} width={40} height={40} onClick={handleClick}></Image>
             ))}
         </Grid>
+        </Box>
     );
 }
