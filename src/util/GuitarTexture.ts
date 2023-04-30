@@ -1,6 +1,6 @@
 
 export function createTextureImage(imageName: string, onComplete: (image: HTMLImageElement) => void) {
-    loadImage("white.png", function (backgroundImage) {
+    loadImage("assets/white.png", function (backgroundImage) {
         const textureCanvas = <HTMLCanvasElement> document.createElement("canvas")
         textureCanvas.id = "textureCanvas"
         textureCanvas.width = 2042
@@ -17,7 +17,7 @@ export function createTextureImage(imageName: string, onComplete: (image: HTMLIm
             textureContext.globalCompositeOperation = "destination-in"
             textureContext.drawImage(backgroundImage, 0, 0, backgroundImage.width, backgroundImage.height)
 
-            const image = new HTMLImageElement()
+            const image = <HTMLImageElement> document.createElement("img")
             image.src = textureCanvas.toDataURL()
             textureCanvas.remove()
             onComplete(image)
@@ -26,7 +26,7 @@ export function createTextureImage(imageName: string, onComplete: (image: HTMLIm
 }
 
 function loadImage(imageName: string, onComplete:(image: HTMLImageElement) => void) {
-    const image = new HTMLImageElement()
+    const image = <HTMLImageElement> document.createElement("img")
     image.onload = function () {
         onComplete(image)
     }
