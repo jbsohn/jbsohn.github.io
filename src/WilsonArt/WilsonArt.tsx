@@ -1,18 +1,18 @@
+import { MouseEvent } from 'react';
 import { Grid, Box, Image } from '@mantine/core';
-import { MouseEventHandler, MouseEvent, useState } from 'react';
-import { Guitar, setGuitarTexture } from '../Guitar/Guitar'
 import { hplImages } from './hplImages'
 
-const textureImages = hplImages.map((filename) => {
-    return "assets/HPL/" + filename
-})
+// 
+export function WilsonArt(props: { onSetGuitarTexture: (image: string) => void }) {
+    const textureImages = hplImages.map((filename) => {
+        return "assets/HPL/" + filename
+    })
 
-function handleClick(e: MouseEvent<HTMLImageElement>) {
-    const imageElement = e.target as HTMLImageElement
-    setGuitarTexture(imageElement.src)
-}
+    function handleClick(e: MouseEvent<HTMLImageElement>) {
+        const imageElement = e.target as HTMLImageElement
+        props.onSetGuitarTexture(imageElement.src)
+    }
 
-export function WilsonArt() {
     return (
         <Box>
         <Grid>

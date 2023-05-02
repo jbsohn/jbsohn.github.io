@@ -1,7 +1,6 @@
 import { useRef } from 'react'
 import { Image, Box, createStyles } from '@mantine/core'
 import { createTextureImage } from "../util/GuitarTexture"
-import React from 'react';
 
 const useStyles = createStyles(() => ({
     parent: {
@@ -21,15 +20,15 @@ const useStyles = createStyles(() => ({
     }
 }));
 
-
-export function setGuitarTexture(image: string) {
-    createTextureImage(image, function (image) {
-        // TODO: set image
-    })
-}
-
 export function Guitar() {
     const { classes } = useStyles();
+
+    function setGuitarTexture(image: string) {
+        createTextureImage(image, function (image) {
+
+        })
+    }
+
     return (
         <Box className={classes.parent}>
             <Image className={classes.image1} src="/assets/green.png" />
