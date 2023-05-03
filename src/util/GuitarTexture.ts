@@ -5,8 +5,6 @@ export function createTextureImage(imageName: string, onComplete: (image: HTMLIm
         textureCanvas.id = "textureCanvas"
         textureCanvas.width = 2042
         textureCanvas.height = 502
-        textureCanvas.hidden = true
-        document.body.appendChild(textureCanvas)
 
         loadImage(imageName, function (textureImage) {
             const textureContext = <CanvasRenderingContext2D> textureCanvas.getContext("2d")
