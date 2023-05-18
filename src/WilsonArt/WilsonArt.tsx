@@ -1,5 +1,5 @@
 import { MouseEvent } from 'react';
-import { Grid, Box, Image, Container } from '@mantine/core';
+import { Button, Grid, Card, Image, Container, UnstyledButton } from '@mantine/core';
 import { hplImages } from './hplImages'
 
 export function WilsonArt(props: { setGuitarTexture: (image: string) => void }) {
@@ -53,11 +53,11 @@ export function WilsonArt(props: { setGuitarTexture: (image: string) => void }) 
 
     return (
         <Container>
-            <Grid>
-                {textureImages.map((textureImage, index) => (
-                    <Image src={textureImage} key={index} width={40} height={40} onClick={handleClick}></Image>
-                ))}
-            </Grid>
+                    {textureImages.map((textureImage, index) => (
+                        <UnstyledButton>
+                            <Image width="44" height="44" src={textureImage} key={index}  onClick={handleClick}></Image>
+                        </UnstyledButton>
+                    ))}
         </Container>
     );
 }
