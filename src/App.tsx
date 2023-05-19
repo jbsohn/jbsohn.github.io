@@ -1,5 +1,6 @@
 import { Guitar } from './Guitar/Guitar';
 import { WilsonArt } from './WilsonArt/WilsonArt';
+import { Formica } from './Formica/Formica';
 import { ThemeProvider } from './ThemeProvider';
 import { useState } from 'react';
 import { Tab } from '@mantine/core/lib/Tabs/Tab/Tab';
@@ -22,6 +23,7 @@ export default function App() {
           <Tabs.Panel value="precision">
           </Tabs.Panel>
           <Tabs.Panel value="formica">
+           <Formica setGuitarTexture={setGuitarTexture} />
           </Tabs.Panel>
         </Tabs>
     </ThemeProvider>
